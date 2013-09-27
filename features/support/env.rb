@@ -2,13 +2,14 @@
 
 ENV['RACK_ENV'] = 'test'
 
-require File.join(File.dirname(__FILE__), '..', '..', 'lib/chitter.rb')
+require File.join(File.dirname(__FILE__), '..', '..', 'app/chitter.rb')
 
 require 'capybara'
 require 'capybara/cucumber'
 require 'rspec'
 require 'database_cleaner'
 require 'database_cleaner/cucumber'
+require_relative '../helpers/session'
 
 
 Capybara.app = Chitter
@@ -19,10 +20,18 @@ class ChitterWorld
   include Capybara::DSL
   include RSpec::Expectations
   include RSpec::Matchers
+  include SessionHelpers
 end
 
 Before do
 	DatabaseCleaner.start
+end
+
+Before('@sign_in_out') do 
+	User.create(:name => 'Bob McBob',
+  				:username => 'bobbo',
+  				:email => 'bob@bobbo.com', 
+              	:password => 'orange')
 end
 
 World do
