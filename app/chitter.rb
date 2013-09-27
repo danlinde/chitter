@@ -1,5 +1,6 @@
 require 'sinatra/base'
 require 'data_mapper'
+require 'dm-timestamps'
 require 'dm-postgres-adapter'
 require 'rack-flash'
 require_relative 'helpers/application'
@@ -28,7 +29,8 @@ class Chitter < Sinatra::Base
 
 	post '/peeps' do
   		message = params["message"]
-  		Peep.create(:message => message)
+  		user = current_user
+  		Peep.create(:message => message, :user =>user)
   		redirect to('/')
 	end
 

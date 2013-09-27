@@ -1,13 +1,20 @@
 Current peeps:
 <ul>
   <% @peeps.each do |peep| %>
-    <li><a href="<%= peep.message %>"><%= peep.message %></a></li>
+    <li>
+    	<a href="<%= peep.message %>"><%= peep.message %></a>
+    	<a href="<%= peep.created_at %>"><%= peep.created_at %></a>
+    	<a href="<%= peep.user.name %>"><%= peep.user.name %></a>
+    	<a href="<%= peep.user.username %>"><%= peep.user.username %></a>
+    </li>
   <% end %>
 </ul>
 
+<% if current_user %>
 <div id="new-peep">
   <form action="/peeps" method="post">
     Peep: <input type="text" name="message">
     <input type="submit" value="Peep">
   </form>
 </div>
+<% end %>

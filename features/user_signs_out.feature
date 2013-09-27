@@ -1,6 +1,6 @@
 @sign_in_out
 Feature: Sign out
-	In order to log out
+	In order to avoid others from using my account
 	As a user
 	I need to sign out
 
